@@ -1,0 +1,14 @@
+services:
+  amnezia:
+    build: .
+    privileged: true
+    volumes:
+      - /etc/ssh:/etc/ssh
+      - /root/.ssh:/root/.ssh
+      - ./data/docker:/var/lib/docker
+    ports:
+      - 2222:22/tcp # ssh
+      - 20443:20443/udp # amnezia-wg
+      - 3048:3048/udp # amnezia-wg-v2
+      - 20444:20444/tcp # xray
+    restart: unless-stopped

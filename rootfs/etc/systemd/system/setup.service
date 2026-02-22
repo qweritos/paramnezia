@@ -1,0 +1,12 @@
+[Unit]
+Description=Setup service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/setup.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
