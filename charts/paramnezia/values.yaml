@@ -1,0 +1,70 @@
+replicaCount: 1
+
+image:
+  repository: qweritos/paramnezia
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+service:
+  type: LoadBalancer
+  annotations: {}
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 22
+      protocol: TCP
+    - name: amnezia-wg
+      port: 20443
+      targetPort: 20443
+      protocol: UDP
+    - name: amnezia-wg-v2
+      port: 3048
+      targetPort: 3048
+      protocol: UDP
+    - name: xray
+      port: 20444
+      targetPort: 20444
+      protocol: TCP
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+securityContext:
+  privileged: true
+
+firewall:
+  blockPrivateSubnets: false
+  blockSubnets: []
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 20Gi
+  storageClassName: ""
+  mountPath: /var/lib/docker
+
+hostPaths:
+  sshHostKeys:
+    enabled: false
+    path: /etc/ssh
+    mountPath: /etc/ssh
+  rootSsh:
+    enabled: false
+    path: /root/.ssh
+    mountPath: /root/.ssh
+
+podSecurityContext: {}
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""

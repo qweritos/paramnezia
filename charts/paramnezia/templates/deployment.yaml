@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "paramnezia.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "paramnezia.selectorLabel" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "paramnezia.selectorLabel" . | nindent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      serviceAccountName: {{ include "paramnezia.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "paramnezia.name" . }}
+          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: FIREWALL_BLOCK_PRIVATE_SUBNETS
+              value: {{ ternary "true" "false" .Values.firewall.blockPrivateSubnets | quote }}
+            - name: FIREWALL_BLOCK_SUBNETS
+              value: {{ join "," .Values.firewall.blockSubnets | quote }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          ports:
+            {{- range .Values.service.ports }}
+            - name: {{ .name }}
+              containerPort: {{ .targetPort }}
+              protocol: {{ .protocol }}
+            {{- end }}
+          volumeMounts:
+            {{- if .Values.persistence.enabled }}
+            - name: docker-data
+              mountPath: {{ .Values.persistence.mountPath }}
+            {{- end }}
+            {{- if .Values.hostPaths.sshHostKeys.enabled }}
+            - name: ssh-host-keys
+              mountPath: {{ .Values.hostPaths.sshHostKeys.mountPath }}
+            {{- end }}
+            {{- if .Values.hostPaths.rootSsh.enabled }}
+            - name: root-ssh
+              mountPath: {{ .Values.hostPaths.rootSsh.mountPath }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        {{- if .Values.persistence.enabled }}
+        - name: docker-data
+          persistentVolumeClaim:
+            claimName: {{ include "paramnezia.fullname" . }}-docker
+        {{- end }}
+        {{- if .Values.hostPaths.sshHostKeys.enabled }}
+        - name: ssh-host-keys
+          hostPath:
+            path: {{ .Values.hostPaths.sshHostKeys.path }}
+            type: Directory
+        {{- end }}
+        {{- if .Values.hostPaths.rootSsh.enabled }}
+        - name: root-ssh
+          hostPath:
+            path: {{ .Values.hostPaths.rootSsh.path }}
+            type: Directory
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

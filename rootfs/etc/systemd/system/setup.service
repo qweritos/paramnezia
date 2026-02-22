@@ -5,6 +5,7 @@ Requires=docker.service
 
 [Service]
 Type=oneshot
+PassEnvironment=FIREWALL_BLOCK_PRIVATE_SUBNETS FIREWALL_BLOCK_SUBNETS
 ExecStart=/setup.sh
 RemainAfterExit=yes
 
