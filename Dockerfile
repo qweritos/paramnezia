@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
   nano \
   inetutils-ping \
   iproute2 \
+  lsof \
   httping \
   bash-completion \
   openssh-server \
