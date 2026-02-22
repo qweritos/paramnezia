@@ -16,4 +16,7 @@ spec:
       port: {{ .port }}
       targetPort: {{ .targetPort }}
       protocol: {{ .protocol }}
+      {{- if hasKey . "nodePort" }}
+      nodePort: {{ .nodePort }}
+      {{- end }}
     {{- end }}

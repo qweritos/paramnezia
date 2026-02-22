@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
   iproute2 \
   httping \
   bash-completion \
-  openssh-server
+  openssh-server \
+  fuse-overlayfs
 
 RUN curl -fsSL get.docker.com | sh
 

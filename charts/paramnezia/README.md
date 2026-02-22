@@ -49,7 +49,7 @@ firewall:
 | Key | Type | Default | Description |
 |---|---|---|---|
 | `replicaCount` | int | `1` | Number of pod replicas. |
-| `image.repository` | string | `qweritos/paramnezia` | Container image repository. |
+| `image.repository` | string | `ghcr.io/qweritos/paramnezia` | Container image repository. |
 | `image.tag` | string | `""` | Image tag, defaults to chart `appVersion` when empty. |
 | `image.pullPolicy` | string | `IfNotPresent` | Image pull policy. |
 | `service.type` | string | `LoadBalancer` | Kubernetes service type. |
