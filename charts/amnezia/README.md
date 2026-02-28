@@ -2,9 +2,12 @@
 
 Helm chart for running a privileged Amnezia instance on Kubernetes.
 
+This chart uses the Docker image from the `paramnezia` project:
+https://github.com/qweritos/paramnezia
+
 ## Prerequisites
 
-- Kubernetes cluster that allows privileged containers.
+- Kubernetes cluster that allows privileged containers. # todo: review privileges set
 - A storage class (if `persistence.enabled=true`).
 
 ## Install
@@ -61,16 +64,15 @@ service:
 ingress:
   enabled: true
   className: nginx
-  annotations:
+  annotations: # for ingress-nginx
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-  host: vkvd472.okcdn.ru
+  host: www.googletagmanager.com
   servicePort: 443
-  path: /
-  pathType: Prefix
 ```
 
 For ingress-nginx passthrough, the controller must run with `--enable-ssl-passthrough`.
+Also make sure `ingress.host` matches the XRay "Disguised as traffic from" host (default, `www.googletagmanager.com`).
 
 ## Key Values
 
