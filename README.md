@@ -51,3 +51,8 @@ Use at your own risk.
 ## License
 
 MIT. See `LICENSE`.
+
+## Help
+
+Feel free to reach out at `me@andrey.wtf` if you need help.
+Telegram: [@qweritos](https://t.me/qweritos)

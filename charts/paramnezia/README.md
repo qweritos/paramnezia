@@ -30,7 +30,7 @@ helm uninstall paramnezia
 The container startup setup script reads these env-backed values:
 
 - `firewall.blockPrivateSubnets`:
-  - `true` adds DROP rules for RFC1918 ranges (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`).
+  - `true` adds DROP rules for RFC1918 ranges
 - `firewall.blockSubnets`:
   - additional CIDRs to block, passed as a list.
 
@@ -44,6 +44,34 @@ firewall:
     - 203.0.113.0/24
 ```
 
+## Ingress (SNI / TLS passthrough)
+
+Use the `ingress` block to route host-based traffic to the `xray` service port.
+
+Example:
+
+```yaml
+service:
+  ports:
+    - name: xray
+      port: 443
+      targetPort: 443
+      protocol: TCP
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  host: vkvd472.okcdn.ru
+  servicePort: 443
+  path: /
+  pathType: Prefix
+```
+
+For ingress-nginx passthrough, the controller must run with `--enable-ssl-passthrough`.
+
 ## Key Values
 
 | Key | Type | Default | Description |
@@ -54,6 +82,11 @@ firewall:
 | `image.pullPolicy` | string | `IfNotPresent` | Image pull policy. |
 | `service.type` | string | `LoadBalancer` | Kubernetes service type. |
 | `service.ports` | list | see `values.yaml` | Service and container ports for SSH and related protocols. |
+| `service.ports[].nodePort` | int | unset | Optional explicit NodePort when `service.type=NodePort`. |
+| `ingress.enabled` | bool | `false` | Enable Ingress resource for host-based routing. |
+| `ingress.className` | string | `""` | Ingress class name. |
+| `ingress.host` | string | `www.googletagmanager.com` | Host matched by Ingress rule. |
+| `ingress.servicePort` | int | `443` | Service port used by Ingress backend. |
 | `securityContext.privileged` | bool | `true` | Runs container in privileged mode. |
 | `firewall.blockPrivateSubnets` | bool | `false` | Enable RFC1918 subnet blocking. |
 | `firewall.blockSubnets` | list | `[]` | Additional CIDRs to block in `DOCKER-USER`. |
@@ -68,3 +101,8 @@ firewall:
 
 - Chart does not create RBAC roles/bindings.
 - HostPath mounts are optional and disabled by default.
+
+## Help
+
+Feel free to reach out at `me@andrey.wtf` if you need help.
+Telegram: [@qweritos](https://t.me/qweritos)

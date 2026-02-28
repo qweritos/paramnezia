@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: qweritos/paramnezia
+  repository: ghcr.io/qweritos/paramnezia
   pullPolicy: IfNotPresent
   tag: ""
 
@@ -31,6 +31,25 @@ service:
       port: 20444
       targetPort: 20444
       protocol: TCP
+
+# for XRay SNI-based routing
+ingress:
+  enabled: false
+  className: ""
+
+  annotations: {}
+    ## for ingress-nginx (run controller with `--enable-ssl-passthrough`) 
+    # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+    ## TODO: for traefik: use IngressRouteTCP
+
+  # should match "Disguised as traffic from" in XRay settings in app
+  host: www.googletagmanager.com
+  servicePort: 443
+
+  path: /
+  pathType: Prefix
 
 resources: {}
 

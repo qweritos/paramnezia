@@ -101,6 +101,62 @@
       },
       "required": ["type", "annotations", "ports"]
     },
+    "ingress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "className": {
+          "type": "string"
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pathType": {
+          "type": "string",
+          "enum": ["Prefix", "Exact", "ImplementationSpecific"]
+        },
+        "servicePort": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        },
+        "tls": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "secretName": {
+              "type": "string"
+            }
+          },
+          "required": ["enabled", "secretName"]
+        }
+      },
+      "required": [
+        "enabled",
+        "className",
+        "annotations",
+        "host",
+        "path",
+        "pathType",
+        "servicePort"
+      ]
+    },
     "resources": {
       "type": "object"
     },
@@ -245,6 +301,7 @@
     "fullnameOverride",
     "podAnnotations",
     "service",
+    "ingress",
     "resources",
     "nodeSelector",
     "tolerations",
