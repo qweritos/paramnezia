@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "paramnezia.fullname" . }}
+  name: {{ include "amnezia.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "paramnezia.selectorLabel" . | nindent 6 }}
+      {{- include "amnezia.selectorLabel" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "paramnezia.selectorLabel" . | nindent 8 }}
+        {{- include "amnezia.selectorLabel" . | nindent 8 }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-      serviceAccountName: {{ include "paramnezia.serviceAccountName" . }}
+      serviceAccountName: {{ include "amnezia.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -26,7 +26,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ include "paramnezia.name" . }}
+        - name: {{ include "amnezia.name" . }}
           image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
@@ -61,7 +61,7 @@ spec:
         {{- if .Values.persistence.enabled }}
         - name: docker-data
           persistentVolumeClaim:
-            claimName: {{ include "paramnezia.fullname" . }}-docker
+            claimName: {{ include "amnezia.fullname" . }}-docker
         {{- end }}
         {{- if .Values.hostPaths.sshHostKeys.enabled }}
         - name: ssh-host-keys

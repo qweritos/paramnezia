@@ -1,6 +1,6 @@
 apiVersion: v2
-name: paramnezia
-description: Helm chart for running a privileged Paramnezia (Amnezia) instance
+name: amnezia
+description: Helm chart for running a privileged Amnezia instance
 icon: https://avatars.githubusercontent.com/u/74861536?s=200&v=4
 type: application
 version: 0.1.0

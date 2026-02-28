@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "paramnezia.fullname" . }}
+  name: {{ include "amnezia.fullname" . }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -19,7 +19,7 @@ spec:
             pathType: {{ .Values.ingress.pathType }}
             backend:
               service:
-                name: {{ include "paramnezia.fullname" . }}
+                name: {{ include "amnezia.fullname" . }}
                 port:
                   number: {{ .Values.ingress.servicePort }}
   {{- if .Values.ingress.tls.enabled }}

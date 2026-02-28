@@ -1,6 +1,6 @@
-# paramnezia Helm Chart
+# amnezia Helm Chart
 
-Helm chart for running a privileged Paramnezia (Amnezia) instance on Kubernetes.
+Helm chart for running a privileged Amnezia instance on Kubernetes.
 
 ## Prerequisites
 
@@ -10,19 +10,19 @@ Helm chart for running a privileged Paramnezia (Amnezia) instance on Kubernetes.
 ## Install
 
 ```bash
-helm install paramnezia ./charts/paramnezia
+helm install amnezia ./charts/amnezia
 ```
 
 ## Upgrade
 
 ```bash
-helm upgrade paramnezia ./charts/paramnezia
+helm upgrade amnezia ./charts/amnezia
 ```
 
 ## Uninstall
 
 ```bash
-helm uninstall paramnezia
+helm uninstall amnezia
 ```
 
 ## Firewall Rules via Values

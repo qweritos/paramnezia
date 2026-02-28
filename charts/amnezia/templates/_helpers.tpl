@@ -1,8 +1,8 @@
-{{- define "paramnezia.name" -}}
+{{- define "amnezia.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "paramnezia.fullname" -}}
+{{- define "amnezia.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -15,13 +15,13 @@
 {{- end -}}
 {{- end -}}
 
-{{- define "paramnezia.selectorLabel" -}}
-app: {{ include "paramnezia.fullname" . }}
+{{- define "amnezia.selectorLabel" -}}
+app: {{ include "amnezia.fullname" . }}
 {{- end -}}
 
-{{- define "paramnezia.serviceAccountName" -}}
+{{- define "amnezia.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-{{- default (include "paramnezia.fullname" .) .Values.serviceAccount.name -}}
+{{- default (include "amnezia.fullname" .) .Values.serviceAccount.name -}}
 {{- else -}}
 {{- default "default" .Values.serviceAccount.name -}}
 {{- end -}}

@@ -1,5 +1,5 @@
 1. Get the service details:
-   kubectl get svc -n {{ .Release.Namespace }} {{ include "paramnezia.fullname" . }}
+   kubectl get svc -n {{ .Release.Namespace }} {{ include "amnezia.fullname" . }}
 
 2. Check pod status:
    kubectl get pods -n {{ .Release.Namespace }} -l app.kubernetes.io/instance={{ .Release.Name }}

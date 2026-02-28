@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "paramnezia.fullname" . }}-docker
+  name: {{ include "amnezia.fullname" . }}-docker
 spec:
   accessModes:
     - {{ .Values.persistence.accessMode }}
