@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.vendor="Andrey Artamonychev"
 LABEL org.opencontainers.image.source="https://github.com/qweritos/paramnezia"
 LABEL org.opencontainers.image.documentation="https://github.com/qweritos/paramnezia#readme"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.description="Parallel Amnezia: run multiple isolated instances on one machine"
+LABEL org.opencontainers.image.description="Parallel Amnezia instances: run multiple isolated instances on one machine"
 LABEL io.artifacthub.package.readme-url="https://github.com/qweritos/paramnezia/blob/main/README.md"
 
 ENV DEBIAN_FRONTEND=noninteractive

@@ -47,6 +47,12 @@ spec:
             - name: docker-data
               mountPath: {{ .Values.persistence.mountPath }}
             {{- end }}
+            {{- if .Values.dockerDaemonConfig.enabled }}
+            - name: docker-daemon-config
+              mountPath: {{ .Values.dockerDaemonConfig.mountPath }}
+              subPath: daemon.json
+              readOnly: true
+            {{- end }}
             {{- if .Values.hostPaths.sshHostKeys.enabled }}
             - name: ssh-host-keys
               mountPath: {{ .Values.hostPaths.sshHostKeys.mountPath }}
@@ -62,6 +68,11 @@ spec:
         - name: docker-data
           persistentVolumeClaim:
             claimName: {{ include "amnezia.fullname" . }}-docker
+        {{- end }}
+        {{- if .Values.dockerDaemonConfig.enabled }}
+        - name: docker-daemon-config
+          configMap:
+            name: {{ include "amnezia.fullname" . }}-docker-daemon
         {{- end }}
         {{- if .Values.hostPaths.sshHostKeys.enabled }}
         - name: ssh-host-keys

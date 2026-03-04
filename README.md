@@ -1,6 +1,6 @@
 <div align="center">
   <h1><img alt="Amnezia" height="48" src="https://avatars.githubusercontent.com/u/74861536?s=200&v=4" /> paramnezia</h1>
-  <p>Parralel Amnezia <br /> Run multiple isolated instances on same machine</p>
+  <p>Parallel Amnezia instances <br /> Run multiple isolated instances on same machine</p>
 
   <p>
     <strong>🚧 Work In Progress 🚧</strong>

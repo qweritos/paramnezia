@@ -14,23 +14,7 @@ podAnnotations: {}
 service:
   type: LoadBalancer
   annotations: {}
-  ports:
-    - name: ssh
-      port: 22
-      targetPort: 22
-      protocol: TCP
-    - name: amnezia-wg
-      port: 20443
-      targetPort: 20443
-      protocol: UDP
-    - name: amnezia-wg-v2
-      port: 3048
-      targetPort: 3048
-      protocol: UDP
-    - name: xray
-      port: 20444
-      targetPort: 20444
-      protocol: TCP
+  ports: {}
 
 # for XRay SNI-based routing
 ingress:
@@ -59,6 +43,14 @@ affinity: {}
 
 securityContext:
   privileged: true
+
+dockerDaemonConfig:
+  enabled: false
+  mountPath: /etc/docker/daemon.json
+  content: |
+    {
+      "storage-driver": "fuse-overlayfs"
+    }
 
 firewall:
   blockPrivateSubnets: false
