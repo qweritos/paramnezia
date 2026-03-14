@@ -83,7 +83,7 @@ Also make sure `ingress.host` matches the XRay "Disguised as traffic from" host 
 | `image.tag` | string | `""` | Image tag, defaults to chart `appVersion` when empty. |
 | `image.pullPolicy` | string | `IfNotPresent` | Image pull policy. |
 | `service.type` | string | `LoadBalancer` | Kubernetes service type. |
-| `service.ports` | list | see `values.yaml` | Service and container ports for SSH and related protocols. |
+| `service.ports` | list | `[{name: ssh, port: 22, targetPort: 22, protocol: TCP}]` | Service and container ports for SSH and related protocols. |
 | `service.ports[].nodePort` | int | unset | Optional explicit NodePort when `service.type=NodePort`. |
 | `ingress.enabled` | bool | `false` | Enable Ingress resource for host-based routing. |
 | `ingress.className` | string | `""` | Ingress class name. |

@@ -14,7 +14,26 @@ podAnnotations: {}
 service:
   type: LoadBalancer
   annotations: {}
-  ports: {}
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 22
+      protocol: TCP
+    - name: amnezia-wg
+      port: 20448
+      targetPort: 20448
+      protocol: UDP
+      nodePort: 20448
+    - name: amnezia-wg-v2
+      port: 3048
+      targetPort: 3048
+      protocol: UDP
+      nodePort: 3048
+    - name: xray
+      port: 20444
+      targetPort: 20444
+      protocol: TCP
+      nodePort: 20444
 
 # for XRay SNI-based routing
 ingress:
