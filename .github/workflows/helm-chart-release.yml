@@ -27,6 +27,7 @@ jobs:
       - name: Import signing key
         run: |
           echo "${ANDREYWTF_GPG_PRIVATE_KEY}" | gpg --batch --import
+          gpg --batch --export --output ~/.gnupg/pubring.gpg "${ANDREYWTF_GPG_KEY_ID}"
         env:
           ANDREYWTF_GPG_PRIVATE_KEY: ${{ secrets.ANDREYWTF_GPG_PRIVATE_KEY }}
           ANDREYWTF_GPG_KEY_ID: ${{ secrets.ANDREYWTF_GPG_KEY_ID }}
