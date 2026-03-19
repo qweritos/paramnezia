@@ -7,7 +7,7 @@ on:
 env:
   CHART_PATH: charts/amnezia
   ANDREYWTF_REGISTRY_HOST: registry.andrey.wtf
-  REGISTRY_REPO: helm
+  REGISTRY_REPO: charts
 
 jobs:
   publish:
