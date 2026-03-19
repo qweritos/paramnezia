@@ -13,13 +13,13 @@ https://github.com/qweritos/paramnezia
 ## Install
 
 ```bash
-helm install amnezia ./charts/amnezia
+helm install amnezia oci://registry.andrey.wtf/charts/amnezia
 ```
 
 ## Upgrade
 
 ```bash
-helm upgrade amnezia ./charts/amnezia
+helm upgrade amnezia oci://registry.andrey.wtf/charts/amnezia
 ```
 
 ## Uninstall
